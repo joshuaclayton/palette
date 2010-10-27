@@ -12,10 +12,13 @@ Gem::Specification.new do |s|
   s.summary     = %q{Build Vim colorschemes with ease}
   s.description = %q{Palette provides an easy way to build Vim color schemes}
 
-  s.rubyforge_project = "palette"
+  all_files = %x{git ls-files}.split("\n")
 
-  s.files         = `git ls-files`.split("\n")
-  s.test_files    = `git ls-files -- {test,spec,features}/*`.split("\n")
+  s.files         = all_files.reject {|file| file =~ /^(spec|features|cucumber)/ }
+  s.test_files    = all_files.select {|file| file =~ /^(spec|features|cucumber)/ }
   s.executables   = `git ls-files -- bin/*`.split("\n").map{ |f| File.basename(f) }
   s.require_paths = ["lib"]
+
+  s.add_development_dependency "rspec",  "1.3.0"
+  s.add_development_dependency "mocha",  "0.9.9"
 end
