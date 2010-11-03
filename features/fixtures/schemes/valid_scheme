@@ -1,0 +1,4 @@
+vim_colors "awesomeness" do
+  author "Josh Clayton"
+  Normal "333", "FFF"
+end

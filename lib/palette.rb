@@ -1,3 +1,4 @@
+require "palette/cli"
 require "palette/dsl"
 require "palette/color_scheme"
 require "palette/color"

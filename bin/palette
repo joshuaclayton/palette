@@ -1,0 +1,4 @@
+#!/usr/bin/env ruby
+
+require "palette/cli"
+Palette::Cli.new(*ARGV)
