@@ -3,9 +3,14 @@ module Palette
   class Cli
     def initialize(*args)
       if File.exist?(path = File.expand_path(args.first))
-        puts Palette::Dsl.run lambda {
-          eval(IO.read(path), binding, path)
-        }
+        begin
+          puts Palette::Dsl.run lambda {
+            eval(IO.read(path), binding, path)
+          }
+        rescue
+          p "Please check the syntax of your palette file"
+          exit 1
+        end
       end
     end
   end

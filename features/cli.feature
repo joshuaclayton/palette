@@ -11,3 +11,14 @@ Feature: Run palette from the command line
     When I run "palette features/fixtures/schemes/missing_scheme"
     Then the output should not contain "colors_name"
     And the exit status should be 0
+
+  Scenario: Process a file with invalid palette syntax
+    Given a file named "features/fixtures/schemes/invalid_scheme" with:
+      """
+      vim_colors "bad syntax" do
+        totally made up junk
+      end
+      """
+    When I run "palette features/fixtures/schemes/invalid_scheme"
+    Then the exit status should be 1
+    And the output should contain "Please check the syntax of your palette file"
