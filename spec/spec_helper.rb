@@ -1,6 +1,7 @@
 require "spec"
 require "mocha"
 require "palette"
+require "bourne"
 
 Spec::Runner.configure do |config|
   config.mock_with :mocha
