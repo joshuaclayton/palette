@@ -36,10 +36,15 @@ module Palette
     def to_s
       output = []
       output << header
+      output << ""
       output << color_scheme_name
+      output << ""
       output << generate_reset
+      output << ""
       output << generate_background
+      output << ""
       output << @rules
+      output << ""
       output << @links
       output.compact.join("\n")
     end
@@ -60,7 +65,7 @@ module Palette
 "   http://rubygems.org/gems/palette
 "
 " Author: #{@author_name}
-#{%{" #{@notes}} if @notes}
+#{%{" Notes:  #{@notes}} if @notes}
       }.strip
     end
 
