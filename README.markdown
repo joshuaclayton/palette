@@ -10,11 +10,9 @@ Install with Rubygems:
 
 ## Usage
 
-    puts Palette::Dsl.run lambda {
-      vim_colors "great" do
-        # rules etc go here
-      end
-    }
+From your terminal:
+
+    palette path/to/color_scheme
 
 ## Syntax
 
