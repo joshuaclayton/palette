@@ -12,7 +12,7 @@ Gem::Specification.new do |s|
   s.summary     = %q{Build Vim colorschemes with ease}
   s.description = %q{Palette provides an easy way to build Vim color schemes}
 
-  all_files = %x{git ls-files}.split("\n")
+  all_files = %x{git ls-files}.split("\n").reject {|file| file =~ /gemspec/ }
 
   s.files         = all_files.reject {|file| file =~ /^(spec|features|cucumber)/ }
   s.test_files    = all_files.select {|file| file =~ /^(spec|features|cucumber)/ }
