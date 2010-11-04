@@ -1,3 +1,5 @@
+require 'sass'
+
 module Palette
   class ColorScheme
     attr_reader :name
@@ -26,6 +28,29 @@ module Palette
     def method_missing(name, *args)
       @rules ||= []
       @rules << Palette::Rule.new(name.to_s, *args)
+    end
+
+    %w(darken lighten saturate desaturate).each do |sass_method|
+      class_eval <<-EOM
+        def #{sass_method}(hex, number)
+          rgb = Palette::Color.hex_to_decimal(Palette::Color.parse(hex))
+          sass_context.#{sass_method}(Sass::Script::Color.new(rgb),
+                      Sass::Script::Number.new(number)).tap{|c| c.options = {}}.inspect.gsub(/#/, "")
+        end
+      EOM
+    end
+
+    %w(grayscale complement invert).each do |sass_method|
+      class_eval <<-EOM
+        def #{sass_method}(hex)
+          rgb = Palette::Color.hex_to_decimal(Palette::Color.parse(hex))
+          sass_context.#{sass_method}(Sass::Script::Color.new(rgb)).tap{|c| c.options = {}}.inspect.gsub(/#/, "")
+        end
+      EOM
+    end
+
+    def sass_context
+      @context ||= Sass::Script::Functions::EvaluationContext.new({})
     end
 
     def String(*args)

@@ -50,6 +50,21 @@ Feature: Run palette from the command line
       hi link rubyInterpolationDelimiter String
       """
 
+  Scenario: Process a file with color math
+    Given a file named "valid_scheme" with:
+      """
+      vim_colors "valid_scheme" do
+        Normal     darken("FFF", 40), invert("F00")
+        Identifier lighten("000", 60), complement("F00")
+      end
+      """
+    When I run "palette valid_scheme"
+    Then the output should contain:
+      """
+      hi Normal     guifg=#999999 ctermfg=246 guibg=#00FFFF ctermbg=51
+      hi Identifier guifg=#999999 ctermfg=246 guibg=#00FFFF ctermbg=51
+      """
+
   Scenario: Process a nonexistant file
     When I run "palette missing_scheme"
     Then the output should not contain "colors_name"
