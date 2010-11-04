@@ -33,9 +33,7 @@ module Palette
     %w(darken lighten saturate desaturate).each do |sass_method|
       class_eval <<-EOM
         def #{sass_method}(hex, number)
-          rgb = Palette::Color.hex_to_decimal(Palette::Color.parse(hex))
-          sass_context.#{sass_method}(Sass::Script::Color.new(rgb),
-                      Sass::Script::Number.new(number)).tap{|c| c.options = {}}.inspect.gsub(/#/, "")
+          sass_evaluator(:#{sass_method}, hex_to_sass_color(hex), Sass::Script::Number.new(number))
         end
       EOM
     end
@@ -43,14 +41,9 @@ module Palette
     %w(grayscale complement invert).each do |sass_method|
       class_eval <<-EOM
         def #{sass_method}(hex)
-          rgb = Palette::Color.hex_to_decimal(Palette::Color.parse(hex))
-          sass_context.#{sass_method}(Sass::Script::Color.new(rgb)).tap{|c| c.options = {}}.inspect.gsub(/#/, "")
+          sass_evaluator(:#{sass_method}, hex_to_sass_color(hex))
         end
       EOM
-    end
-
-    def sass_context
-      @context ||= Sass::Script::Functions::EvaluationContext.new({})
     end
 
     def String(*args)
@@ -123,6 +116,20 @@ endif
       instance = new(name)
       instance.instance_eval(&block)
       instance.to_s
+    end
+
+    private
+
+    def sass_evaluator(method, *arguments)
+      sass_context.send(method, *arguments).tap {|c| c.options = {}}.inspect.gsub(/#/, "")
+    end
+
+    def hex_to_sass_color(hex)
+      Sass::Script::Color.new(Palette::Color.hex_to_decimal(Palette::Color.parse(hex)))
+    end
+
+    def sass_context
+      @context ||= Sass::Script::Functions::EvaluationContext.new({})
     end
   end
 end
