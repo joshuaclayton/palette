@@ -80,3 +80,18 @@ Feature: Run palette from the command line
     When I run "palette invalid_scheme"
     Then the exit status should be 1
     And the output should contain "Please check the syntax of your palette file"
+
+  Scenario: Process a file with Ruby constants
+    Given a file named "valid_theme" with:
+      """
+      vim_colors "ruby constants" do
+        String "000", "FFF"
+        Float  "FFF", "000"
+      end
+      """
+    When I run "palette valid_theme"
+    Then the output should contain:
+      """
+      hi String guifg=#000000 ctermfg=16  guibg=#FFFFFF ctermbg=231
+      hi Float  guifg=#FFFFFF ctermfg=231 guibg=#000000 ctermbg=16
+      """

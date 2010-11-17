@@ -46,9 +46,11 @@ module Palette
       EOM
     end
 
-    def String(*args)
-      @rules ||= []
-      @rules << Palette::Rule.new("String", *args)
+    %w(String Float).each do |constant|
+      define_method(constant) do |*args|
+        @rules ||= []
+        @rules << Palette::Rule.new(constant, *args)
+      end
     end
 
     def to_s
