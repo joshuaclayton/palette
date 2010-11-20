@@ -95,3 +95,19 @@ Feature: Run palette from the command line
       hi String guifg=#000000 ctermfg=16  guibg=#FFFFFF ctermbg=231
       hi Float  guifg=#FFFFFF ctermfg=231 guibg=#000000 ctermbg=16
       """
+
+  Scenario: Process a file where links are self-referential
+    Given a file named "valid_theme" with:
+      """
+      vim_colors "self-referential links" do
+        link :htmlTag, :to => :Type
+        link :htmlEndTag, :htmlTagName, :to => :htmlTag
+      end
+      """
+    When I run "palette valid_theme"
+    Then the output should contain:
+      """
+      hi link htmlTag     Type
+      hi link htmlEndTag  htmlTag
+      hi link htmlTagName htmlTag
+      """
