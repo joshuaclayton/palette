@@ -1,6 +1,6 @@
 module Palette
   class Dsl
-    def self.run(block)
+    def self.run(&block)
       new.instance_eval(&block)
     end
 

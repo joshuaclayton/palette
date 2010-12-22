@@ -11,9 +11,9 @@ describe Palette::Dsl do
 
   it "runs schemes" do
     Palette::ColorScheme.stubs(:run)
-    Palette::Dsl.run lambda {
+    Palette::Dsl.run do
       vim_colors("awesome") {}
-    }
+    end
     Palette::ColorScheme.should have_received(:run)
   end
 end

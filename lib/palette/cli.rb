@@ -4,7 +4,7 @@ module Palette
     def initialize(*args)
       if File.exist?(path = File.expand_path(args.first))
         begin
-          puts Palette::Dsl.run lambda {
+          puts Palette::Dsl.run {
             eval(IO.read(path), binding, path)
           }
         rescue

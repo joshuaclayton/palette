@@ -89,14 +89,14 @@ describe Palette::ColorScheme, "rule generation" do
   before { Palette::Rule.stubs(:new => "Custom rule") }
 
   it "creates simple rules" do
-    Palette::ColorScheme.run "one", lambda {
+    Palette::ColorScheme.run "one", proc {
       Comment "ABCDEF", :gui => "bold"
     }
     Palette::Rule.should have_received(:new).with("Comment", "ABCDEF", :gui => "bold")
   end
 
   it "creates multiple rules" do
-    Palette::ColorScheme.run "one", lambda {
+    Palette::ColorScheme.run "one", proc {
       Comment "ABCDEF", :gui => "bold"
       Regexp  :gui => "bold"
     }
@@ -105,14 +105,14 @@ describe Palette::ColorScheme, "rule generation" do
   end
 
   it "handles Ruby naming conflicts" do
-    Palette::ColorScheme.run "one", lambda {
+    Palette::ColorScheme.run "one", proc {
       String "ABCDEF"
     }
     Palette::Rule.should have_received(:new).with("String", "ABCDEF")
   end
 
   it "outputs rules" do
-    output = Palette::ColorScheme.run "one", lambda {
+    output = Palette::ColorScheme.run "one", proc {
       Comment "ABCDEF", :gui => "bold"
       String "ABCDEF"
     }
@@ -125,14 +125,14 @@ describe Palette::ColorScheme, "linking" do
   before { Palette::Link.stubs(:new => "Custom link") }
 
   it "handles simple linking" do
-    Palette::ColorScheme.run "one", lambda {
+    Palette::ColorScheme.run "one", proc {
       link :Something, :to => :Another
     }
     Palette::Link.should have_received(:new).with(:Something, :Another)
   end
 
   it "handles complex linking" do
-    Palette::ColorScheme.run "one", lambda {
+    Palette::ColorScheme.run "one", proc {
       link :Something, :Else, :to => :Another
       link :Red, :to => :Black
     }
@@ -142,7 +142,7 @@ describe Palette::ColorScheme, "linking" do
   end
 
   it "outputs links" do
-    output = Palette::ColorScheme.run "one", lambda {
+    output = Palette::ColorScheme.run "one", proc {
       link :Something, :Else, :to => :Another
       link :Red, :to => :Black
     }
@@ -182,7 +182,7 @@ describe Palette::ColorScheme, ".run" do
   end
 
   it "creates a new color scheme with the correct name" do
-    Palette::ColorScheme.run "Great", lambda {
+    Palette::ColorScheme.run "Great", proc {
       great
     }
     Palette::ColorScheme.should have_received(:new).with("Great")
