@@ -1,6 +1,7 @@
 pkg/*
 *.gem
 .bundle
+Gemfile.lock
 *.DS_Store
 *.sw[nop]
 tmp
