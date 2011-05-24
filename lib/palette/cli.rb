@@ -1,4 +1,3 @@
-require "palette"
 module Palette
   class Cli
     def initialize(*args)

@@ -1,9 +1,8 @@
-require "spec"
-require "mocha"
 require "palette"
-require "bourne"
+require "bundler/setup"
+Bundler.require(:development)
 
-Spec::Runner.configure do |config|
+RSpec.configure do |config|
   config.mock_with :mocha
 
   Mocha::Configuration.warn_when(:stubbing_non_existant_method)

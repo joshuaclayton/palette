@@ -15,47 +15,50 @@ shared_examples_for "rule with colors" do
 end
 
 describe Palette::Rule, "with a foreground" do
-  it_should_behave_like "rule with colors"
-  subject { Palette::Rule.new("Awesome", fg) }
+  it_should_behave_like "rule with colors" do
+    subject { Palette::Rule.new("Awesome", fg) }
 
-  it "highlights the correct colors" do
-    subject.to_s.should == "hi Awesome guifg=##{hex} ctermfg=#{cterm}"
-  end
+    it "highlights the correct colors" do
+      subject.to_s.should == "hi Awesome guifg=##{hex} ctermfg=#{cterm}"
+    end
 
-  it "converts the correct colors" do
-    subject.to_s
-    Palette::Color.should have_received(:new).with(fg)
-    Palette::Color.should_not have_received(:new).with(bg)
+    it "converts the correct colors" do
+      subject.to_s
+      Palette::Color.should have_received(:new).with(fg)
+      Palette::Color.should_not have_received(:new).with(bg)
+    end
   end
 end
 
 describe Palette::Rule, "with a foreground and background" do
-  it_should_behave_like "rule with colors"
-  subject { Palette::Rule.new("Awesome", fg, bg) }
+  it_should_behave_like "rule with colors" do
+    subject { Palette::Rule.new("Awesome", fg, bg) }
 
-  it "highlights the correct colors" do
-    subject.to_s.should == "hi Awesome guifg=##{hex} ctermfg=#{cterm} guibg=##{hex} ctermbg=#{cterm}"
-  end
+    it "highlights the correct colors" do
+      subject.to_s.should == "hi Awesome guifg=##{hex} ctermfg=#{cterm} guibg=##{hex} ctermbg=#{cterm}"
+    end
 
-  it "converts the correct colors" do
-    subject.to_s
-    Palette::Color.should have_received(:new).with(fg)
-    Palette::Color.should have_received(:new).with(bg)
+    it "converts the correct colors" do
+      subject.to_s
+      Palette::Color.should have_received(:new).with(fg)
+      Palette::Color.should have_received(:new).with(bg)
+    end
   end
 end
 
 describe Palette::Rule, "with a hash passed" do
-  it_should_behave_like "rule with colors"
-  subject { Palette::Rule.new("Awesome", :fg => fg, :bg => bg) }
+  it_should_behave_like "rule with colors" do
+    subject { Palette::Rule.new("Awesome", :fg => fg, :bg => bg) }
 
-  it "highlights the correct colors" do
-    subject.to_s.should == "hi Awesome guifg=##{hex} ctermfg=#{cterm} guibg=##{hex} ctermbg=#{cterm}"
-  end
+    it "highlights the correct colors" do
+      subject.to_s.should == "hi Awesome guifg=##{hex} ctermfg=#{cterm} guibg=##{hex} ctermbg=#{cterm}"
+    end
 
-  it "converts the correct colors" do
-    subject.to_s
-    Palette::Color.should have_received(:new).with(fg)
-    Palette::Color.should have_received(:new).with(bg)
+    it "converts the correct colors" do
+      subject.to_s
+      Palette::Color.should have_received(:new).with(fg)
+      Palette::Color.should have_received(:new).with(bg)
+    end
   end
 end
 

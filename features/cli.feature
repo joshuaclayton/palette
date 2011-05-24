@@ -20,7 +20,7 @@ Feature: Run palette from the command line
         link :rubyDelimiter, :rubyInterpolationDelimiter, :to => :String
       end
       """
-    When I run "palette valid_scheme"
+    When I run `palette valid_scheme`
     Then the output should contain:
       """
       " Vim color file
@@ -58,7 +58,7 @@ Feature: Run palette from the command line
         Identifier lighten("000", 60), complement("F00")
       end
       """
-    When I run "palette valid_scheme"
+    When I run `palette valid_scheme`
     Then the output should contain:
       """
       hi Normal     guifg=#999999 ctermfg=246 guibg=#00FFFF ctermbg=51
@@ -66,7 +66,7 @@ Feature: Run palette from the command line
       """
 
   Scenario: Process a nonexistant file
-    When I run "palette missing_scheme"
+    When I run `palette missing_scheme`
     Then the output should not contain "colors_name"
     And the exit status should be 0
 
@@ -77,7 +77,7 @@ Feature: Run palette from the command line
         totally made up junk
       end
       """
-    When I run "palette invalid_scheme"
+    When I run `palette invalid_scheme`
     Then the exit status should be 1
     And the output should contain "Please check the syntax of your palette file"
 
@@ -89,7 +89,7 @@ Feature: Run palette from the command line
         Float  "FFF", "000"
       end
       """
-    When I run "palette valid_theme"
+    When I run `palette valid_theme`
     Then the output should contain:
       """
       hi String guifg=#000000 ctermfg=16  guibg=#FFFFFF ctermbg=231
@@ -104,7 +104,7 @@ Feature: Run palette from the command line
         link :htmlEndTag, :htmlTagName, :to => :htmlTag
       end
       """
-    When I run "palette valid_theme"
+    When I run `palette valid_theme`
     Then the output should contain:
       """
       hi link htmlTag     Type

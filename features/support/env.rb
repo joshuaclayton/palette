@@ -1,3 +1,4 @@
-Bundler.require
+require "bundler/setup"
+Bundler.require(:development)
 
-require "aruba"
+require "aruba/cucumber"

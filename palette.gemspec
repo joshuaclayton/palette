@@ -19,11 +19,11 @@ Gem::Specification.new do |s|
   s.executables   = `git ls-files -- bin/*`.split("\n").map{ |f| File.basename(f) }
   s.require_paths = ["lib"]
 
-  s.add_dependency "sass",     "3.1.0.alpha.23"
+  s.add_dependency "sass",     "3.1.1"
 
-  s.add_development_dependency "rspec",    "1.3.0"
+  s.add_development_dependency "rspec",    "2.5.0"
   s.add_development_dependency "mocha",    "0.9.8"
   s.add_development_dependency "bourne",   "1.0"
-  s.add_development_dependency "cucumber", "0.9.3"
-  s.add_development_dependency "aruba",    "0.2.4"
+  s.add_development_dependency "cucumber", "0.10.2"
+  s.add_development_dependency "aruba",    "0.3.6"
 end
