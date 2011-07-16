@@ -57,9 +57,9 @@ module Palette
       output = []
       output << header
       output << ""
-      output << color_scheme_name
-      output << ""
       output << generate_reset
+      output << ""
+      output << color_scheme_name
       output << ""
       output << generate_background
       output << ""
