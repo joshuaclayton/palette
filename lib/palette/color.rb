@@ -13,7 +13,7 @@ module Palette
     end
 
     def to_cterm
-      self.class.color_map.index(closest_cterm_hex)
+      self.class.color_map.key(closest_cterm_hex)
     end
 
     private
