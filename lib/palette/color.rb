@@ -14,7 +14,7 @@ module Palette
 
     def to_cterm
       return "NONE" if @hex == "NONE"
-      self.class.color_map.index(closest_cterm_hex)
+      cterm_of_closest_cterm_hex
     end
 
     private
@@ -29,6 +29,15 @@ module Palette
       else
         raise "invalid hex value: #{hex}"
       end.upcase
+    end
+
+    def cterm_of_closest_cterm_hex
+      color_map = self.class.color_map
+      if color_map.respond_to?(:key)
+        color_map.key(closest_cterm_hex)
+      else
+        color_map.index(closest_cterm_hex)
+      end
     end
 
     def closest_cterm_hex
