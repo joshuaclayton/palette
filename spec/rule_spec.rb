@@ -7,7 +7,7 @@ shared_examples_for "rule with colors" do
   let(:cterm) { 123 }
   let(:color) do
     mock("color").tap do |color|
-      color.stubs(:to_hex => hex, :to_cterm => cterm)
+      color.stubs(:to_hex => "##{hex}", :to_cterm => cterm)
     end
   end
 
@@ -31,10 +31,10 @@ describe Palette::Rule, "with a foreground" do
 end
 
 describe Palette::Rule, "with a foreground set to none" do
-  subject { Palette::Rule.new("Awesome", :none) }
+  subject { Palette::Rule.new("Awesome", "none") }
 
   it "highlights the correct colors" do
-    subject.to_s.should == "hi Awesome guifg=NONE ctermfg=NONE"
+    subject.to_s.should == "hi Awesome guifg=NONE    ctermfg=NONE"
   end
 end
 
@@ -43,7 +43,7 @@ describe Palette::Rule, "with a foreground and background" do
     subject { Palette::Rule.new("Awesome", fg, bg) }
 
     it "highlights the correct colors" do
-      subject.to_s.should == "hi Awesome guifg=##{hex} ctermfg=#{cterm} guibg=##{hex} ctermbg=#{cterm}"
+      subject.to_s.should == "hi Awesome guifg=##{hex} ctermfg=#{cterm}  guibg=##{hex} ctermbg=#{cterm}"
     end
 
     it "converts the correct colors" do
@@ -59,7 +59,7 @@ describe Palette::Rule, "with a hash passed" do
     subject { Palette::Rule.new("Awesome", :fg => fg, :bg => bg) }
 
     it "highlights the correct colors" do
-      subject.to_s.should == "hi Awesome guifg=##{hex} ctermfg=#{cterm} guibg=##{hex} ctermbg=#{cterm}"
+      subject.to_s.should == "hi Awesome guifg=##{hex} ctermfg=#{cterm}  guibg=##{hex} ctermbg=#{cterm}"
     end
 
     it "converts the correct colors" do

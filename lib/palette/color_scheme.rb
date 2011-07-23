@@ -53,6 +53,10 @@ module Palette
       end
     end
 
+    def none
+      "NONE"
+    end
+
     def to_s
       output = []
       output << header

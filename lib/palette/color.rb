@@ -13,6 +13,7 @@ module Palette
     end
 
     def to_cterm
+      return "NONE" if @hex == "NONE"
       self.class.color_map.key(closest_cterm_hex)
     end
 
@@ -20,9 +21,11 @@ module Palette
 
     def self.parse(hex)
       if hex.upcase =~ /^[A-F\d]{3}$/
-        hex.split(//).map {|code| code * 2 }.join
+        "##{hex.split(//).map {|code| code * 2 }.join}"
       elsif hex.upcase =~ /^[A-F\d]{6}$/
-        hex
+        "##{hex}"
+      elsif hex.upcase == "NONE"
+        "NONE"
       else
         raise "invalid hex value: #{hex}"
       end.upcase
@@ -68,7 +71,7 @@ module Palette
     end
 
     def self.hex_to_decimal(hex)
-      hex.scan(/../).map {|x| ("%2d" % "0x#{x}").to_i }
+      hex.gsub("#", "").scan(/../).map {|x| ("%2d" % "0x#{x}").to_i }
     end
   end
 end

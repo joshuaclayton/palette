@@ -104,6 +104,13 @@ describe Palette::ColorScheme, "rule generation" do
     Palette::Rule.should have_received(:new).with("Regexp", :gui => "bold")
   end
 
+  it "handles none" do
+    Palette::ColorScheme.run "one", proc {
+      Comment none, none
+    }
+    Palette::Rule.should have_received(:new).with("Comment", "NONE", "NONE")
+  end
+
   it "handles Ruby naming conflicts" do
     Palette::ColorScheme.run "one", proc {
       String "ABCDEF"

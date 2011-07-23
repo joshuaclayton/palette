@@ -20,25 +20,15 @@ module Palette
       output = ["hi #{sprintf("%-#{@@max_length}s", name)}"]
 
       if fg
-        if fg.to_s.upcase == 'NONE'
-          output << 'guifg=NONE'
-          output << 'ctermfg=NONE'
-        else
-          color = Palette::Color.new(fg)
-          output << %{guifg=##{color.to_hex}}
-          output << %{ctermfg=#{sprintf("%-3s", color.to_cterm)}}
-        end
+        color = Palette::Color.new(fg)
+        output << %{guifg=#{sprintf("%-7s", color.to_hex)}}
+        output << %{ctermfg=#{sprintf("%-4s", color.to_cterm)}}
       end
 
       if bg
-        if bg.to_s.upcase == 'NONE'
-          output << 'guibg=NONE'
-          output << 'ctermbg=NONE'
-        else
-          color = Palette::Color.new(bg)
-          output << %{guibg=##{color.to_hex}}
-          output << %{ctermbg=#{sprintf("%-3s", color.to_cterm)}}
-        end
+        color = Palette::Color.new(bg)
+        output << %{guibg=#{sprintf("%-7s", color.to_hex)}}
+        output << %{ctermbg=#{sprintf("%-4s", color.to_cterm)}}
       end
 
       if gui
