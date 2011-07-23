@@ -14,7 +14,7 @@ module Palette
 
     def to_cterm
       return "NONE" if @hex == "NONE"
-      self.class.color_map.key(closest_cterm_hex)
+      self.class.color_map.index(closest_cterm_hex)
     end
 
     private
