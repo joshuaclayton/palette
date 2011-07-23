@@ -166,7 +166,7 @@ describe Palette::ColorScheme, "output order" do
   end
 
   it "generates the color file in the correct order" do
-    subject.to_s.should =~ /#{header}.*#{color_scheme_name}.*#{reset}.*#{background}/m
+    subject.to_s.should =~ /#{header}.*#{reset}.*#{color_scheme_name}.*#{background}/m
   end
 end
 

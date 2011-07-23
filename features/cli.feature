@@ -30,14 +30,14 @@ Feature: Run palette from the command line
       " Author: Josh Clayton
       " Notes:  This is a pretty simple example
 
-      let colors_name="valid_scheme"
-
       hi clear
       if version > 580
           if exists("syntax_on")
               syntax reset
           endif
       endif
+
+      let colors_name="valid_scheme"
 
       if has("gui_running")
           set background=light
