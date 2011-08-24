@@ -6,8 +6,8 @@ module Palette
           puts Palette::Dsl.run {
             eval(IO.read(path), binding, path)
           }
-        rescue
-          p "Please check the syntax of your palette file"
+        rescue Exception => e
+          puts "Please check the syntax of your palette file\n  #{e}"
           exit 1
         end
       end
