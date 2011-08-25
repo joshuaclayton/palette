@@ -5,7 +5,13 @@ module Palette
     attr_reader :name
 
     def initialize(color_name)
-      @name = color_name
+      @name        = color_name
+      @notes       = nil
+      @links       = []
+      @rules       = []
+      @reset       = false
+      @background  = nil
+      @author_name = nil
     end
 
     def author(author_name)
@@ -26,7 +32,6 @@ module Palette
     end
 
     def method_missing(name, *args)
-      @rules ||= []
       @rules << Palette::Rule.new(name.to_s, *args)
     end
 
@@ -48,7 +53,6 @@ module Palette
 
     %w(String Float).each do |constant|
       define_method(constant) do |*args|
-        @rules ||= []
         @rules << Palette::Rule.new(constant, *args)
       end
     end
@@ -76,7 +80,6 @@ module Palette
     def link(*args)
       options = args.last.is_a?(Hash) ? args.pop : {}
 
-      @links ||= []
       args.each do |arg|
         @links << Link.new(arg, options[:to])
       end
