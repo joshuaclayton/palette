@@ -31,11 +31,13 @@ module Palette
         output << %{ctermbg=#{sprintf("%-4s", color.to_cterm)}}
       end
 
-      if gui
-        output << %{gui=#{gui}}
-        if gui !~ /italic/
-          output << %{cterm=#{gui}}
-        end
+      @gui ||= "none"
+
+      output << %{gui=#{gui.upcase}}
+      if gui =~ /italic/
+        output << %{cterm=NONE}
+      else
+        output << %{cterm=#{gui.upcase}}
       end
 
       output.join(" ").strip

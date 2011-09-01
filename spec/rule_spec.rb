@@ -19,7 +19,7 @@ describe Palette::Rule, "with a foreground" do
     subject { Palette::Rule.new("Awesome", fg) }
 
     it "highlights the correct colors" do
-      subject.to_s.should == "hi Awesome guifg=##{hex} ctermfg=#{cterm}"
+      subject.to_s.should == "hi Awesome guifg=##{hex} ctermfg=#{cterm}  gui=NONE cterm=NONE"
     end
 
     it "converts the correct colors" do
@@ -34,7 +34,7 @@ describe Palette::Rule, "with a foreground set to none" do
   subject { Palette::Rule.new("Awesome", "none") }
 
   it "highlights the correct colors" do
-    subject.to_s.should == "hi Awesome guifg=NONE    ctermfg=NONE"
+    subject.to_s.should == "hi Awesome guifg=NONE    ctermfg=NONE gui=NONE cterm=NONE"
   end
 end
 
@@ -43,7 +43,7 @@ describe Palette::Rule, "with a foreground and background" do
     subject { Palette::Rule.new("Awesome", fg, bg) }
 
     it "highlights the correct colors" do
-      subject.to_s.should == "hi Awesome guifg=##{hex} ctermfg=#{cterm}  guibg=##{hex} ctermbg=#{cterm}"
+      subject.to_s.should == "hi Awesome guifg=##{hex} ctermfg=#{cterm}  guibg=##{hex} ctermbg=#{cterm}  gui=NONE cterm=NONE"
     end
 
     it "converts the correct colors" do
@@ -59,7 +59,7 @@ describe Palette::Rule, "with a hash passed" do
     subject { Palette::Rule.new("Awesome", :fg => fg, :bg => bg) }
 
     it "highlights the correct colors" do
-      subject.to_s.should == "hi Awesome guifg=##{hex} ctermfg=#{cterm}  guibg=##{hex} ctermbg=#{cterm}"
+      subject.to_s.should == "hi Awesome guifg=##{hex} ctermfg=#{cterm}  guibg=##{hex} ctermbg=#{cterm}  gui=NONE cterm=NONE"
     end
 
     it "converts the correct colors" do
@@ -74,7 +74,7 @@ describe Palette::Rule, "with a gui" do
   subject { Palette::Rule.new("Awesome", :gui => "bold") }
 
   it "sets the gui correctly" do
-    subject.to_s.should == "hi Awesome gui=bold cterm=bold"
+    subject.to_s.should == "hi Awesome gui=BOLD cterm=BOLD"
   end
 end
 
@@ -82,7 +82,7 @@ describe Palette::Rule, "with a gui as italic" do
   subject { Palette::Rule.new("Awesome", :gui => "italic") }
 
   it "sets the gui correctly" do
-    subject.to_s.should == "hi Awesome gui=italic"
+    subject.to_s.should == "hi Awesome gui=ITALIC cterm=NONE"
   end
 end
 

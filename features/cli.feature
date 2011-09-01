@@ -44,9 +44,9 @@ Feature: Run palette from the command line
           set background=light
       endif
 
-      hi Normal     guifg=#000000 ctermfg=16   guibg=#FFFFFF ctermbg=231
-      hi Identifier guifg=#FFFFFF ctermfg=231  guibg=#000000 ctermbg=16
-      hi Comment    guifg=NONE    ctermfg=NONE guibg=NONE    ctermbg=NONE
+      hi Normal     guifg=#000000 ctermfg=16   guibg=#FFFFFF ctermbg=231  gui=NONE cterm=NONE
+      hi Identifier guifg=#FFFFFF ctermfg=231  guibg=#000000 ctermbg=16   gui=NONE cterm=NONE
+      hi Comment    guifg=NONE    ctermfg=NONE guibg=NONE    ctermbg=NONE gui=NONE cterm=NONE
 
       hi link rubyDelimiter              String
       hi link rubyInterpolationDelimiter String
@@ -63,8 +63,8 @@ Feature: Run palette from the command line
     When I run `palette valid_scheme`
     Then the output should contain:
       """
-      hi Normal     guifg=#999999 ctermfg=246  guibg=#00FFFF ctermbg=51
-      hi Identifier guifg=#999999 ctermfg=246  guibg=#00FFFF ctermbg=51
+      hi Normal     guifg=#999999 ctermfg=246  guibg=#00FFFF ctermbg=51   gui=NONE cterm=NONE
+      hi Identifier guifg=#999999 ctermfg=246  guibg=#00FFFF ctermbg=51   gui=NONE cterm=NONE
       """
 
   Scenario: Process a nonexistant file
@@ -94,8 +94,8 @@ Feature: Run palette from the command line
     When I run `palette valid_theme`
     Then the output should contain:
       """
-      hi String guifg=#000000 ctermfg=16   guibg=#FFFFFF ctermbg=231
-      hi Float  guifg=#FFFFFF ctermfg=231  guibg=#000000 ctermbg=16
+      hi String guifg=#000000 ctermfg=16   guibg=#FFFFFF ctermbg=231  gui=NONE cterm=NONE
+      hi Float  guifg=#FFFFFF ctermfg=231  guibg=#000000 ctermbg=16   gui=NONE cterm=NONE
       """
 
   Scenario: Process a file where links are self-referential
